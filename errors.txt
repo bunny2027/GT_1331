@@ -1,0 +1,11 @@
+Bad 1:
+    Compile Time becasue the name of the class would have to match that of the file
+    Change BadOne to BAD1\
+
+Bad 2: 
+    Runtime Error
+    Dont devide by 0  ( well you cant devide by 0 )
+    make b any other int than 0 
+
+Bad 3: Strign shoulb eb turned into char
+     This lead to a compiling Error
