@@ -1,3 +1,7 @@
+//In order to help learn course concepts, I worked on the homework with [Josh Riddick my robotic mentor], discussed homework topics and issues with [provide names of people], 
+//and/or consulted related material that can be found at stackoverflow
+
+
 import java.util.Scanner;
 
 public class Apothecary {
@@ -5,8 +9,9 @@ public class Apothecary {
     public static void content() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Welcome to my apothecary! Please enter your name here:");
+        System.out.print("Welcome to my apothecary! Please enter your name here: ");
         String name = scanner.nextLine();
+        System.out.println();
 
         if (name.equals("")) {
             name = "Apprentice";
@@ -14,8 +19,9 @@ public class Apothecary {
             name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
         }
 
-        System.out.println("Hello " + name + ", which potion do you want me to brew?");
+        System.out.print("Hello " + name + ", which potion do you want me to brew? ");
         String potion_name = scanner.nextLine();
+        System.out.println();
 
         if (potion_name.equalsIgnoreCase("death poison")) {
             System.out.println("GUARDS!");
@@ -92,6 +98,7 @@ public class Apothecary {
 
         System.out.print("The " + potionName + " requires " + ingredients + ". How many would you like? ");
         String amountInput = scanner.nextLine();
+        System.out.println();
 
         int num_of_potions = 1;
         try {
@@ -109,10 +116,13 @@ public class Apothecary {
             System.out.print("How many " + ingredientTypes[i] + " will you provide? ");
             int provided = scanner.nextInt();
             scanner.nextLine();
+        }
 
+        System.out.println();
+
+        for (int i = 0; i < numIngredients; i++) {
             int required = ingredientCounts[i] * num_of_potions;
-            int missing = required - provided;
-
+            int missing = required;
             if (missing > 0) {
                 totalMissingCost += missing * ingredientCosts[i];
             }
@@ -120,27 +130,23 @@ public class Apothecary {
 
         System.out.print("Is there anything I should know? ");
         String specialNote = scanner.nextLine();
-        boolean isForKing = specialNote.equals("The order is for the King");
+        System.out.println();
+
+        boolean isForKing = specialNote.equalsIgnoreCase("The order is for the King");
 
         int serviceFee = isAdvanced ? 20 : 10;
         int potionFee = isAdvanced ? 25 : 15;
         double finalCost = serviceFee + (potionFee * num_of_potions) + totalMissingCost;
 
         if (isForKing) {
-            finalCost = finalCost * 0.5;
+            finalCost *= 0.5;
         }
 
-        String potionNamePlural;
+        String potionNamePlural = potionName;
         if (num_of_potions > 1) {
-            if (potionName.startsWith("Potion")) {
-                potionNamePlural = potionName.replace("Potion", "Potions");
-            } else if (potionName.startsWith("Elixir")) {
-                potionNamePlural = potionName.replace("Elixir", "Elixirs");
-            } else {
-                potionNamePlural = potionName.replace("Draught", "Draughts");
-            }
-        } else {
-            potionNamePlural = potionName;
+            potionNamePlural = potionName.replace("Potion", "Potions")
+                                         .replace("Elixir", "Elixirs")
+                                         .replace("Draught", "Draughts");
         }
 
         System.out.printf("%s, thank you for requesting the %s. The cost is $%.2f.%n",
@@ -152,4 +158,3 @@ public class Apothecary {
     public static void main(String[] args) {
         content();
     }
-}
