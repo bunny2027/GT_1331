@@ -91,12 +91,10 @@ public class Apothecary {
         }
 
         if (!isValid) {
-            System.out.println();
             System.out.println("I am sorry, I cannot brew that potion.");
             return;
         }
 
-        System.out.println();
         System.out.print("The " + potionName + " requires " + ingredients + ". How many would you like? ");
         String amountInput = scanner.nextLine();
         System.out.println();
