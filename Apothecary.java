@@ -21,7 +21,6 @@ public class Apothecary {
 
         System.out.print("Hello " + name + ", which potion do you want me to brew? ");
         String potion_name = scanner.nextLine();
-        System.out.println();
 
         if (potion_name.equalsIgnoreCase("death poison")) {
             System.out.println("GUARDS!");
@@ -92,22 +91,24 @@ public class Apothecary {
         }
 
         if (!isValid) {
+            System.out.println();
             System.out.println("I am sorry, I cannot brew that potion.");
             return;
         }
 
+        System.out.println();
         System.out.print("The " + potionName + " requires " + ingredients + ". How many would you like? ");
         String amountInput = scanner.nextLine();
         System.out.println();
 
-        int num_of_potions = 1;
+        int numPotions = 1;
         try {
             int temp = Integer.parseInt(amountInput);
             if (temp >= 1) {
-                num_of_potions = temp;
+                numPotions = temp;
             }
         } catch (Exception e) {
-            num_of_potions = 1;
+            numPotions = 1;
         }
 
         int totalMissingCost = 0;
@@ -116,18 +117,15 @@ public class Apothecary {
             System.out.print("How many " + ingredientTypes[i] + " will you provide? ");
             int provided = scanner.nextInt();
             scanner.nextLine();
-        }
 
-        System.out.println();
-
-        for (int i = 0; i < numIngredients; i++) {
-            int required = ingredientCounts[i] * num_of_potions;
-            int missing = required;
+            int required = ingredientCounts[i] * numPotions;
+            int missing = required - provided;
             if (missing > 0) {
                 totalMissingCost += missing * ingredientCosts[i];
             }
         }
 
+        System.out.println();
         System.out.print("Is there anything I should know? ");
         String specialNote = scanner.nextLine();
         System.out.println();
@@ -136,17 +134,17 @@ public class Apothecary {
 
         int serviceFee = isAdvanced ? 20 : 10;
         int potionFee = isAdvanced ? 25 : 15;
-        double finalCost = serviceFee + (potionFee * num_of_potions) + totalMissingCost;
+        double finalCost = serviceFee + (potionFee * numPotions) + totalMissingCost;
 
         if (isForKing) {
             finalCost *= 0.5;
         }
 
         String potionNamePlural = potionName;
-        if (num_of_potions > 1) {
+        if (numPotions > 1) {
             potionNamePlural = potionName.replace("Potion", "Potions")
-                                         .replace("Elixir", "Elixirs")
-                                         .replace("Draught", "Draughts");
+                    .replace("Elixir", "Elixirs")
+                    .replace("Draught", "Draughts");
         }
 
         System.out.printf("%s, thank you for requesting the %s. The cost is $%.2f.%n",
